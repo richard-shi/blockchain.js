@@ -54,7 +54,7 @@ const create_block = function(data){
     }
 
     const prev_hash = prev_block.hash();
-    
+
     return new Block(timestamp, prev_hash, data_hash, data, 0)
 }
 
@@ -65,12 +65,12 @@ const add_block = function(block){
 
     // Mine block
     block.mine();
-    
-    chain[block.hash()] = block;
+
+    chain.push(block);
 }
 
 // Main
-const chain = {};
+const chain = [];
 const genesis_block = genesis();
 
 chain.add_block(genesis_block);
