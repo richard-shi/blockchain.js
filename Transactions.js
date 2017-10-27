@@ -6,4 +6,8 @@ module.exports = class Transaction {
         this.amount = amount;
         this.receiver = receiver;
     }
+
+    toString() {
+        return `${this.sender} sent ${this.receiver} ${this.amount} hubcoins.`;
+    }
 }
