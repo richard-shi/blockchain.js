@@ -1,28 +1,35 @@
 'use strict';
 
-const Crypto = require('crypto')
-const VERSION = "0.1.0";
+const Crypto = require('crypto');
+const VERSION = '0.1.0';
 
-exports.Block = class Block {
-    constructor(timestamp, prev_block_hash, data_hash, data, nonce) {
+module.exports = class Block {
+    constructor(previous_block, timestamp, data, nonce) {
+        // Block metadata
+        this.version = VERSION;
+        this.data = data;
+        this.previous_block = previous_block;
+        
         // Hashed data
         this.timestamp = timestamp;
-        this.prev_block_hash = prev_block_hash;
-        this.data_hash = data_hash;
+        this.previous_hash = (previous_block !== 'Genesis') ? this.previous_block.hash() : "0";
+        this.data_hash = this.hash_data(data);
         this.nonce = nonce;
-        
-        // Block metadata 
-        this.version = VERSION;
-
-        // Data
-        this.data = data;
     }
 
-    hash(){
-        return Crypto.createHash('sha256').update(this.toString()).digest('hex')
+    hash() {
+        return Crypto.createHash('sha256')
+            .update(this.toString())
+            .digest('hex');
     }
-    
-    toString(){
-        return `${this.timestamp}${this.prev_block_hash}${this.data_hash}${this.nonce}`;
+
+    toString() {
+        return `${this.timestamp}${this.previous_hash}${this.data_hash}${this.nonce}`;
+    }
+
+    hash_data(data) {
+        return Crypto.createHash('sha256')
+            .update(data)
+            .digest('hex');
     }
 };
