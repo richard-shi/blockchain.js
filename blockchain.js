@@ -4,7 +4,7 @@
 require('./util');
 const Block = require('./block');
 
-const DIFFICULTY = 1;
+const DIFFICULTY = 4;
 
 module.exports = class Blockchain {
 
@@ -56,5 +56,11 @@ module.exports = class Blockchain {
         }
     
         return new Block(prev_block, timestamp, data, 0)
+    }
+
+    add_data_to_chain(data){
+        const block = this.create_block(data)
+        this.mine(block)
+        this.add_block(block)
     }
 }
