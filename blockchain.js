@@ -3,13 +3,15 @@
 const Crypto = require('crypto');
 const Block = require('./block').Block;
 const BlockHeader = require('./block').BlockHeader;
+const socket = require('socket.io');
+const app = require('express')()
+const HTTP_PORT = 3001;
+const SOCKET_PORT = 6001;
 
 const DIFFICULTY = 4;
 const BLOCK_COUNT = 20;
 
 // Functions
-
-
 
 
 const hash_data = function(data){
@@ -34,7 +36,7 @@ const genesis = function(){
 
 
     const block = new Block(header, data)
-    
+
     mine(block)
 
     return block
@@ -45,6 +47,10 @@ const add_block = function(block){
 
     }
 }
+
+app.listen(HTTP_PORT, () =>{
+    console.log("listening to port ")
+})
 
 // Main
 const chain = [];
