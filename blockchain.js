@@ -2,11 +2,24 @@
 
 const Crypto = require('crypto');
 const Block = require('./block').Block;
+<<<<<<< HEAD
+=======
+const BlockHeader = require('./block').BlockHeader;
+const socket = require('socket.io');
+const app = require('express')()
+const HTTP_PORT = 3001;
+const SOCKET_PORT = 6001;
+>>>>>>> d054437177301a7dd1c0bb8424fc7e4bef358c1b
 
 const DIFFICULTY = 1;
 const BLOCK_COUNT = 20;
 
 // Functions
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d054437177301a7dd1c0bb8424fc7e4bef358c1b
 const hash_data = function(data){
     return Crypto.createHash('sha256').update(data).digest('hex');
 }
@@ -32,9 +45,15 @@ const create_block = function(data){
     const data_hash = hash_data(data);
     const prev_block = chain.last();
 
+<<<<<<< HEAD
     if(!prev_block){
         throw new Error("Please create genesis block!")
     }
+=======
+    const block = new Block(header, data)
+
+    mine(block)
+>>>>>>> d054437177301a7dd1c0bb8424fc7e4bef358c1b
 
     const prev_hash = prev_block.hash();
     
@@ -51,6 +70,10 @@ const add_block = function(block){
     
     chain[block.hash()] = block;
 }
+
+app.listen(HTTP_PORT, () =>{
+    console.log("listening to port ")
+})
 
 // Main
 const chain = {};
