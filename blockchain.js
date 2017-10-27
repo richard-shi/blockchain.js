@@ -1,5 +1,8 @@
 'use strict';
 
+// Add utility functions
+require('./util');
+
 const Crypto = require('crypto');
 const Block = require('./block').Block;
 
@@ -59,5 +62,7 @@ const genesis_block = genesis();
 chain.add_block(genesis_block);
 
 for(let i = 0; i < BLOCK_COUNT; ++i){
-
+    const new_block = create_block(i)
+    
+    add_block()
 }
