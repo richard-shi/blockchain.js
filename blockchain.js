@@ -2,7 +2,6 @@
 
 // Add utility functions
 require('./util');
-
 const Block = require('./block');
 
 const DIFFICULTY = 1;
@@ -17,7 +16,7 @@ module.exports = class Blockchain {
     }
 
     is_genesis(block){
-        return chain[0] === block && block.previous_hash === 'Genesis'
+        return this.chain[0] === block && block.previous_hash === 'Genesis'
     }
 
     genesis(){
@@ -36,7 +35,7 @@ module.exports = class Blockchain {
 
     add_block(block){
         if(!this.is_valid(block)){
-            return new Error("Block is not valid, not adding")
+            throw new Error("Block is not valid, not adding")
         }
 
         this.chain.push(block)
@@ -50,10 +49,10 @@ module.exports = class Blockchain {
 
     create_block(data){
         const timestamp = Date.now();
-        const prev_block = chain.last();
+        const prev_block = this.chain.last();
     
         if(!prev_block){
-            throw new Error("Please create genesis block!")
+            throw new Error("Please create genesis block!");
         }
     
         return new Block(prev_block, timestamp, data, 0)
