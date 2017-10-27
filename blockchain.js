@@ -33,6 +33,18 @@ module.exports = class Blockchain {
         return block.hash().slice(0, difficulty) === '0'.repeat(difficulty);                    // Check if block meets target
     }
 
+    validate_chain(from_block = this.chain.last()){
+        block = from_block;
+        while(block.previous_hash !== '0'){
+            if(block.previous_block.hash() !== block.previous_hash){
+                return false;
+            }
+            block = block.previous_block;
+        }
+
+        return true;
+    }
+
     add_block(block){
         if(!this.is_valid(block)){
             throw new Error("Block is not valid, not adding")
