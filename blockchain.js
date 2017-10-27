@@ -50,7 +50,6 @@ module.exports = class Blockchain {
 
 const create_block = function(data){
     const timestamp = Date.now();
-    const data_hash = hash_data(data);
     const prev_block = chain.last();
 
     if(!prev_block){
@@ -59,5 +58,5 @@ const create_block = function(data){
 
     const prev_hash = prev_block.hash();
 
-    return new Block(timestamp, prev_hash, data_hash, data, 0)
+    return new Block(timestamp, prev_hash, data, 0)
 }
