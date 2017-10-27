@@ -9,7 +9,21 @@ const Block = require('./block');
 const DIFFICULTY = 1;
 const BLOCK_COUNT = 20;
 
-// Functions
+module.exports = class Blockchain {
+
+    constructor(){
+
+    }
+
+
+}
+
+
+
+
+
+
+
 const hash_data = function(data){
     return Crypto.createHash('sha256').update(data).digest('hex');
 }
