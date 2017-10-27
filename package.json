@@ -27,5 +27,8 @@
     "jshint": "^2.9.3",
     "jshint-stylish-ex": "^0.2.0",
     "prettier": "1.6.x"
+  },
+  "eslintConfig": {
+    "extends": "./tools/linter/.eslintrc.json"
   }
 }

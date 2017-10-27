@@ -1,0 +1,8 @@
+{
+    "preset": "airbnb",
+    "validateIndentation":4,
+    "disallowQuotedKeysInObjects":false,
+    "safeContextKeyword":"self",
+    "requireCamelCaseOrUpperCaseIdentifiers":false,
+    "disallowTrailingWhitespace":true
+}

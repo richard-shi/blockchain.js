@@ -1,0 +1,59 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "rules": {
+        "no-console": "off",
+        "no-extra-semi": "off",
+        "no-template-curly-in-string": "error",
+        "array-callback-return": "error",
+        "block-scoped-var": "error",
+        "no-extra-bind": "error",
+        "no-param-reassign": "off",
+        "no-useless-call": "error",
+        "strict": ["off", "global"],
+        "no-shadow": "off",
+        "callback-return": "warn",
+        "handle-callback-err": "error",
+        "no-mixed-operators": [
+            "error",
+            {
+                "groups": [
+                    ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                    ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                    ["&&", "||"],
+                    ["in", "instanceof"]
+                ],
+                "allowSamePrecedence": true
+            }
+        ],
+        "no-mixed-spaces-and-tabs": "off",
+        "no-tabs": "error",
+        "no-underscore-dangle": "off",
+        "arrow-body-style": ["error", "always"],
+
+        "no-var": "error",
+        "prefer-const": "error",
+        "object-shorthand": ["error", "always"],
+        "prefer-template": "error",
+        "no-eval": "error",
+        "no-useless-escape": "error",
+        "prefer-rest-params": "error",
+        "no-new-func": "error",
+        "prefer-arrow-callback": "error",
+        "no-duplicate-imports": "error",
+        "dot-notation": "error",
+        "no-undef": "off",
+        "eqeqeq": ["error", "always"],
+        "no-nested-ternary": "error",
+        "no-unneeded-ternary": "error",
+        "max-len": [
+            "error",
+            {"code": 140, "ignoreUrls": true, "ignoreStrings": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true}
+        ],
+        "camelcase": "off"
+    }
+}
