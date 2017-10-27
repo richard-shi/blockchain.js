@@ -3,6 +3,7 @@
 // Add utility functions
 require('./util');
 const Block = require('./block');
+const Transaction = require('./Transactions.js');
 
 const DIFFICULTY = 4;
 

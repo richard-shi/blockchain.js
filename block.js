@@ -7,13 +7,13 @@ module.exports = class Block {
     constructor(previous_block, timestamp, data, nonce, data_hash) {
         // Block metadata
         this.version = VERSION;
-        this.data = data;
+        this.data = data.toString();
         this.previous_block = previous_block;
-        
+
         // Hashed data
         this.timestamp = timestamp;
         this.previous_hash = (previous_block !== 'Genesis') ? this.previous_block.hash() : "0";
-        this.data_hash = data_hash || this.hash_data(data);
+        this.data_hash = data_hash || this.hash_data(data.toString());
         this.nonce = nonce;
     }
 
