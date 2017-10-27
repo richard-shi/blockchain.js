@@ -18,7 +18,7 @@ app.post('/mine', (req, res) => {
     // console.log(req.body.data);
     // blockchain.create_block(JSON.stringify(req.body.data))
     // blockchain.push(req.)
-    blockchain.create_block(req.body.transaction);
+    blockchain.add_data_to_chain(JSON.stringify(req.body.transaction));
     res.send('success');
 });
 
