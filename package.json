@@ -16,6 +16,7 @@
   "author": "Richard Shi",
   "license": "MIT",
   "dependencies": {
+    "ursa": "^0.9.4"
   },
   "devDependencies": {
     "eslint": "^4.9.0",
