@@ -8,44 +8,52 @@ const app = require('express')()
 const HTTP_PORT = 3001;
 const SOCKET_PORT = 6001;
 
-const DIFFICULTY = 4;
+const DIFFICULTY = 1;
 const BLOCK_COUNT = 20;
 
 // Functions
 
-
 const hash_data = function(data){
-    //Assuming data is a string
-    return Crypto.createHash('sha256').update(data).digest('hex')
+    return Crypto.createHash('sha256').update(data).digest('hex');
 }
 
-// I think the actual way uses a number representation (in hex
-const valid = function(block, difficulty = DIFFICULTY){
-    return block.hash().slice(0, difficulty) === '0'.repeat(difficulty);
+const is_valid = function(block, difficulty = DIFFICULTY){
+    return block.hash().slice(0, difficulty) === '0'.repeat(difficulty);                    // Check if block meets target
 }
 
 const mine = function(block){
-    while(!valid(block)){
-        block.header.nonce += 1;
+    while(!is_valid(block)){
+        block.nonce += 1;
     }
 }
 
 const genesis = function(){
-    const data = "And God said, Let there be light: and there was light."
-    const data_hash = data_hash(data)
-
-
-    const block = new Block(header, data)
-
-    mine(block)
-
-    return block
+    const data = "Shinji get in the robot"
+    return create_block(data)
 }
 
-const add_block = function(block){
-    if(valid(block)){
+const create_block = function(data){
+    const timestamp = Date.now();
+    const data_hash = hash_data(data);
+    var prev_hash;
+    var prev_block;
 
+    if(chain.length === 0){
+        prev_hash = "0";
+    } else {
+        prev_block = chain[chain.length-1];
+        prev_hash = prev_block.hash();
     }
+    // if(){
+    //     throw new Error("Please create genesis block!")
+    // }
+
+    const block = new Block(timestamp, prev_hash, data_hash, data, 0)
+
+    mine(block)
+    chain.push(block);
+
+    return block;
 }
 
 app.listen(HTTP_PORT, () =>{
@@ -56,8 +64,7 @@ app.listen(HTTP_PORT, () =>{
 const chain = [];
 const genesis_block = genesis();
 
-chain.push(genesis_block)
-
-for(let i = 0; i < BLOCK_COUNT; ++i){
-
+module.exports = {
+  chain,
+  create_block
 }
