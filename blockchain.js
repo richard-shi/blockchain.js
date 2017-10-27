@@ -4,7 +4,7 @@
 require('./util');
 
 const Crypto = require('crypto');
-const Block = require('./block').Block;
+const Block = require('./block');
 
 const DIFFICULTY = 1;
 const BLOCK_COUNT = 20;

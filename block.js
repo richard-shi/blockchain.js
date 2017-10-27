@@ -3,7 +3,7 @@
 const Crypto = require('crypto')
 const VERSION = "0.1.0";
 
-exports.Block = class Block {
+module.exports = class Block {
     constructor(timestamp, prev_block_hash, data_hash, data, nonce) {
         // Hashed data
         this.timestamp = timestamp;
