@@ -17,6 +17,18 @@ app.post('/mine', (req, res) => {
     res.send('success');
 });
 
+app.post('/transaction', (req, res) => {
+    const nt = req.body;
+    // blockchain.transaction_list.push(nt);
+    res.send(`
+      New transaction:
+      FROM: ${nt.from}
+      TO: ${nt.to}
+      AMOUNT: ${nt.amount}
+      Submission successful
+    `);
+});
+
 app.get('/blocks', (req, res) => {
     console.log('llll');
     console.log(blockchain.chain);
