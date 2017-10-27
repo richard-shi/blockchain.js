@@ -1,7 +1,7 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-const HTTP_PORT = 3001;
+const HTTP_PORT = 8080;
 const blockchain = require('./blockchain');
 const bodyParser = require('body-parser');
 const peers = [];
@@ -38,10 +38,12 @@ app.get('/blocks', (req, res) => {
     res.send(JSON.stringify(blockchain.chain));
 });
 
+
 io.on('connection', function (socket) {
-  socket.broadcast.emit('new_node', { ip: socket.handshake.address });
+  console.log("a new node connected")
+  peers.push(socket.handshake.address);
+  socket.emit('new_node', { ip: JSON.stringify(peers) });
   socket.on('new_node', function (data) {
     console.log(data);
-    peers.push(data.ip);
   });
 });
