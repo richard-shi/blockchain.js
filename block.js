@@ -4,7 +4,7 @@ const Crypto = require('crypto');
 const VERSION = '0.1.0';
 
 module.exports = class Block {
-    constructor(previous_block, timestamp, data, nonce) {
+    constructor(previous_block, timestamp, data, nonce, data_hash) {
         // Block metadata
         this.version = VERSION;
         this.data = data;
@@ -13,7 +13,7 @@ module.exports = class Block {
         // Hashed data
         this.timestamp = timestamp;
         this.previous_hash = (previous_block !== 'Genesis') ? this.previous_block.hash() : "0";
-        this.data_hash = this.hash_data(data);
+        this.data_hash = data_hash || this.hash_data(data);
         this.nonce = nonce;
     }
 
