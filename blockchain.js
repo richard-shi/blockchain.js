@@ -8,10 +8,10 @@ const BLOCK_COUNT = 20;
 
 // Functions
 const hash_data = function(data){
-    return Crypto.createHash('sha256').update(data).digest('hex')
+    return Crypto.createHash('sha256').update(data).digest('hex');
 }
 
-const valid = function(block, difficulty = DIFFICULTY){
+const is_valid_block = function(block, difficulty = DIFFICULTY){
     return block.hash().slice(0, difficulty) === '0'.repeat(difficulty);
 }
 const mine = function(block){
@@ -21,25 +21,21 @@ const mine = function(block){
 }
 
 const genesis = function(){
-    const data = "And God said, Let there be light: and there was light."
-    const data_hash = data_hash(data)
+    const data = "Shinji get in the robot"
 
-
-    const block = new Block(header, data)
-    
-    mine(block)
 
     return block
 }
 
-const create_block = function(data, timestamp){
+const create_block = function(data){
+    const data_hash = hash_data(data);
+    const prev_hash = 
+
 
 }
 
 const add_block = function(block){
-    if(valid(block)){
 
-    }
 }
 
 // Main
