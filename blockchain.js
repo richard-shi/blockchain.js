@@ -8,10 +8,11 @@ const DIFFICULTY = 4;
 
 module.exports = class Blockchain {
 
-    constructor(chain = []){
+    constructor(chain = [], transaction_list = [], starting_user = "init user"){
         this.chain = chain;
+        this.transaction_list = transaction_list;
         if(!this.chain.length){
-            this.genesis();
+            this.genesis(starting_user);
         }
     }
 
@@ -19,8 +20,8 @@ module.exports = class Blockchain {
         return this.chain[0] === block && block.previous_hash === 'Genesis'
     }
 
-    genesis(){
-        const data = "Shinji get in the robot"
+    genesis(starting_user){
+        const data = new Transaction("Hubcoin", 100, starting_user)
         const timestamp = Date.now();
         const prev_block = "Genesis"
 
@@ -50,7 +51,8 @@ module.exports = class Blockchain {
             throw new Error("Block is not valid, not adding")
         }
 
-        this.chain.push(block)
+        this.chain.push(block);
+        this.transaction_list.push(block.data);
     }
 
     mine(block){
@@ -62,11 +64,11 @@ module.exports = class Blockchain {
     create_block(data){
         const timestamp = Date.now();
         const prev_block = this.chain.last();
-    
+
         if(!prev_block){
             throw new Error("Please create genesis block!");
         }
-    
+
         return new Block(prev_block, timestamp, data, 0)
     }
 
