@@ -2,26 +2,18 @@
 
 const Crypto = require('crypto');
 const Block = require('./block').Block;
-const BlockHeader = require('./block').BlockHeader;
 
-const DIFFICULTY = 4;
+const DIFFICULTY = 1;
 const BLOCK_COUNT = 20;
 
 // Functions
-
-
-
-
 const hash_data = function(data){
-    //Assuming data is a string
     return Crypto.createHash('sha256').update(data).digest('hex')
 }
 
-// I think the actual way uses a number representation (in hex
 const valid = function(block, difficulty = DIFFICULTY){
     return block.hash().slice(0, difficulty) === '0'.repeat(difficulty);
 }
-
 const mine = function(block){
     while(!valid(block)){
         block.header.nonce += 1;
@@ -38,6 +30,10 @@ const genesis = function(){
     mine(block)
 
     return block
+}
+
+const create_block = function(data, timestamp){
+
 }
 
 const add_block = function(block){
