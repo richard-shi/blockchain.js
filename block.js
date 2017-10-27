@@ -13,7 +13,7 @@ module.exports = class Block {
         // Hashed data
         this.timestamp = timestamp;
         this.previous_hash = (previous_block !== 'Genesis') ? this.previous_block.hash() : "0";
-        this.data_hash = hash_data(data);
+        this.data_hash = this.hash_data(data);
         this.nonce = nonce;
     }
 
@@ -24,7 +24,7 @@ module.exports = class Block {
     }
 
     toString() {
-        return `${this.timestamp}${this.prev_block_hash}${this.data_hash}${this.nonce}`;
+        return `${this.timestamp}${this.previous_hash}${this.data_hash}${this.nonce}`;
     }
 
     hash_data(data) {

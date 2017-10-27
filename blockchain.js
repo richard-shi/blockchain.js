@@ -3,7 +3,6 @@
 // Add utility functions
 require('./util');
 
-const Crypto = require('crypto');
 const Block = require('./block');
 
 const DIFFICULTY = 1;
@@ -12,51 +11,51 @@ module.exports = class Blockchain {
 
     constructor(chain = []){
         this.chain = chain;
+        if(!this.chain.length){
+            this.genesis();
+        }
     }
 
     is_genesis(block){
-        return chain[0] === block && block.prev_block_hash === '0'
+        return chain[0] === block && block.previous_hash === 'Genesis'
     }
 
-    create_genesis(){
+    genesis(){
         const data = "Shinji get in the robot"
-        return this.create_block(data)
+        const timestamp = Date.now();
+        const prev_block = "Genesis"
+
+        const genesis_block =  new Block(prev_block, timestamp, data, 0);
+        this.mine(genesis_block);
+        this.add_block(genesis_block);
     }
 
     is_valid(block, difficulty = DIFFICULTY){
-
-
-
-        block.hash().slice(0, difficulty) === '0'.repeat(difficulty);                    // Check if block meets target
+        return block.hash().slice(0, difficulty) === '0'.repeat(difficulty);                    // Check if block meets target
     }
 
     add_block(block){
-        if(!is_valid(block)){
+        if(!this.is_valid(block)){
             return new Error("Block is not valid, not adding")
         }
 
-        chain.push(block)
+        this.chain.push(block)
     }
 
     mine(block){
         while(!this.is_valid(block)){
-            block.header.nonce += 1;
+            block.nonce += 1;
         }
     }
 
-
-
-}
-
-const create_block = function(data){
-    const timestamp = Date.now();
-    const prev_block = chain.last();
-
-    if(!prev_block){
-        throw new Error("Please create genesis block!")
+    create_block(data){
+        const timestamp = Date.now();
+        const prev_block = chain.last();
+    
+        if(!prev_block){
+            throw new Error("Please create genesis block!")
+        }
+    
+        return new Block(prev_block, timestamp, data, 0)
     }
-
-    const prev_hash = prev_block.hash();
-
-    return new Block(timestamp, prev_hash, data, 0)
 }
