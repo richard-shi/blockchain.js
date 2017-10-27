@@ -1,11 +1,15 @@
-// const socket = require('socket.io');
-const app = require('express')();
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 const HTTP_PORT = 3001;
 const blockchain = require('./blockchain');
 const bodyParser = require('body-parser');
+const peers = [];
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+server.listen(HTTP_PORT);
 
 app.post('/mine', (req, res) => {
     console.log(req.body);
@@ -30,11 +34,14 @@ app.post('/transaction', (req, res) => {
 });
 
 app.get('/blocks', (req, res) => {
-    console.log('llll');
     console.log(blockchain.chain);
     res.send(JSON.stringify(blockchain.chain));
 });
 
-app.listen(HTTP_PORT, () => {
-    console.log(`listening to port ${HTTP_PORT}`);
+io.on('connection', function (socket) {
+  socket.broadcast.emit('new_node', { ip: socket.handshake.address });
+  socket.on('new_node', function (data) {
+    console.log(data);
+    peers.push(data.ip);
+  });
 });
