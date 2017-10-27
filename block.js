@@ -17,4 +17,12 @@ exports.Block = class Block {
         // Data
         this.data = data;
     }
+
+    hash(){
+        return Crypto.createHash('sha256').update(this.toString()).digest('hex')
+    }
+    
+    toString(){
+        return `${this.timestamp}${this.prev_block_hash}${this.data_hash}${this.nonce}`;
+    }
 };

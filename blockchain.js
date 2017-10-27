@@ -9,13 +9,7 @@ const BLOCK_COUNT = 20;
 
 // Functions
 
-hash(){
-    return Crypto.createHash('sha256').update(this.toString()).digest('hex')
-}
 
-toString(){
-    return `${this.timestamp}${this.prev_block_hash}${this.data_hash}${this.nonce}`;
-}
 
 
 const hash_data = function(data){
@@ -38,7 +32,7 @@ const genesis = function(){
     const data = "And God said, Let there be light: and there was light."
     const data_hash = data_hash(data)
 
-    const header = new BlockHeader(VERSION, DIFFICULTY, Date.now(), "0", data_hash)
+
     const block = new Block(header, data)
     
     mine(block)
