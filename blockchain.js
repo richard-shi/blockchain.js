@@ -7,7 +7,6 @@ const Crypto = require('crypto');
 const Block = require('./block');
 
 const DIFFICULTY = 1;
-const BLOCK_COUNT = 20;
 
 module.exports = class Blockchain {
 
@@ -34,7 +33,7 @@ module.exports = class Blockchain {
     add_block(block){
         if(!is_valid(block)){
             return new Error("Block is not valid, not adding")
-        } 
+        }
 
         chain.push(block)
     }
@@ -48,17 +47,6 @@ module.exports = class Blockchain {
 
 
 }
-
-
-
-
-
-
-
-const hash_data = function(data){
-    return Crypto.createHash('sha256').update(data).digest('hex');
-}
-
 
 const create_block = function(data){
     const timestamp = Date.now();
