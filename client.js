@@ -4,6 +4,7 @@ var io = require('socket.io')(server);
 const HTTP_PORT = 8080;
 const Blockchain = require('./blockchain');
 const bodyParser = require('body-parser');
+const Transaction = require('./Transactions.js')
 const peers = [];
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -15,16 +16,14 @@ const myBlockChain = new Blockchain();
 app.post('/mine', (req, res) => {
     console.log(req.body);
     console.log(req.body.transaction);
-    // console.log(req.body.data);
-    // blockchain.create_block(JSON.stringify(req.body.data))
-    // blockchain.push(req.)
-    blockchain.add_data_to_chain(JSON.stringify(req.body.transaction));
+    blockchain.add_data_to_chain(new Transaction("hubcoin", 10, "receiver"));
     res.send('success');
 });
 
 app.post('/transaction', (req, res) => {
     const nt = req.body;
-    // blockchain.transaction_list.push(nt);
+    myBlockChain.transaction_list.push(JSON.stringify(new Transaction(nt.from, nt.amount, nt.to)));
+
     res.send(`
       New transaction:
       FROM: ${nt.from}
