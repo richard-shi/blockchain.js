@@ -46,14 +46,17 @@ const add_block = function(block){
         return new Error("Block is not valid, not adding")
     }
 
-    chain.
+    // Mine block
+    block.mine();
+    
+    chain[block.hash()] = block;
 }
 
 // Main
 const chain = {};
 const genesis_block = genesis();
 
-chain.add_block(genesis_block)
+chain.add_block(genesis_block);
 
 for(let i = 0; i < BLOCK_COUNT; ++i){
 
